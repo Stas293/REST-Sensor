@@ -25,6 +25,11 @@ public class SensorDataValidator implements Validator {
     public void validate(Object target, Errors errors) {
         SensorData sensorData = (SensorData) target;
 
+        if (sensorData.getSensor() == null) {
+            errors.rejectValue("sensor", "sensor.not.exists");
+            return;
+        }
+
         if (sensorService.getSensorByName(sensorData.getSensor().getName()) == null) {
             errors.rejectValue("sensor", "sensor.name.not.exists");
         }

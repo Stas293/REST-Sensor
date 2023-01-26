@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "sensor")
 public class Sensor {
@@ -19,17 +16,6 @@ public class Sensor {
     @Size(min = 3, max = 255, message = "Name must be between 3 and 255 characters")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-
-    @OneToMany(mappedBy = "sensor")
-    private Set<SensorData> sensorData = new LinkedHashSet<>();
-
-    public Set<SensorData> getSensorData() {
-        return sensorData;
-    }
-
-    public void setSensorData(Set<SensorData> sensorData) {
-        this.sensorData = sensorData;
-    }
 
     public String getName() {
         return name;

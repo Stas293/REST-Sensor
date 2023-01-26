@@ -17,9 +17,9 @@ public class SensorDataDto implements Serializable {
     @NotNull
     @Min(value = -100, message = "Value must be between -100 and 100")
     @Max(value = 100, message = "Value must be between -100 and 100")
-    private double value;
+    private Double value;
     @NotNull
-    private boolean raining;
+    private Boolean raining;
 
     public SensorDataDto() {
     }
@@ -38,19 +38,19 @@ public class SensorDataDto implements Serializable {
         this.sensor = sensor;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public boolean getRaining() {
+    public Boolean getRaining() {
         return raining;
     }
 
-    public void setRaining(boolean raining) {
+    public void setRaining(Boolean raining) {
         this.raining = raining;
     }
 

@@ -25,7 +25,7 @@ public class SensorData {
     @Min(value = -100, message = "Value must be between -100 and 100")
     @Max(value = 100, message = "Value must be between -100 and 100")
     @Column(name = "value", nullable = false)
-    private double value;
+    private Double value;
 
     @NotNull
     @Column(name = "raining", nullable = false)
@@ -51,11 +51,11 @@ public class SensorData {
         this.raining = raining;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

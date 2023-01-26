@@ -5,10 +5,12 @@ import org.springapp.projectrest.dtos.SensorDto;
 import org.springapp.projectrest.exceptions.SensorNotCreatedException;
 import org.springapp.projectrest.models.Sensor;
 import org.springapp.projectrest.services.SensorService;
+import org.springapp.projectrest.utils.ExceptionParser;
 import org.springapp.projectrest.utils.Mapper;
 import org.springapp.projectrest.utils.SensorErrorResponse;
 import org.springapp.projectrest.validators.SensorValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +30,18 @@ public class SensorController {
     }
 
     @PostMapping("/registration")
-    public void registerSensor(@RequestBody @Valid SensorDto sensorDto, BindingResult bindingResult) throws SensorNotCreatedException {
+    public ResponseEntity<HttpStatus> registerSensor(@RequestBody @Valid SensorDto sensorDto, BindingResult bindingResult) throws SensorNotCreatedException {
         Sensor sensor = mapper.convertTo(sensorDto, Sensor.class);
         sensorValidator.validate(sensor, bindingResult);
         if (bindingResult.hasErrors()) {
-            throw new SensorNotCreatedException("Sensor not created", System.currentTimeMillis());
+            throw new SensorNotCreatedException(
+                    ExceptionParser.parseBindingResult(bindingResult)
+                            .orElse("Sensor not created"),
+                    System.currentTimeMillis());
         }
 
         sensorService.registerSensor(sensor);
+        return ResponseEntity.ok().build();
     }
 
     @ExceptionHandler(SensorNotCreatedException.class)

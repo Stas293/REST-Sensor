@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class SensorDataService {
@@ -27,8 +26,6 @@ public class SensorDataService {
         sensorData.setTimestamp(LocalDateTime.now());
         Sensor sensor = sensorRepository.findByName(sensorData.getSensor().getName()).orElseThrow(() -> new SensorDataAddException("Sensor with name " + sensorData.getSensor().getName() + " does not exist"));
         sensorData.setSensor(sensor);
-        Set<SensorData> sensorDataList = sensor.getSensorData();
-        sensorDataList.add(sensorData);
         sensorDataRepository.save(sensorData);
     }
 
